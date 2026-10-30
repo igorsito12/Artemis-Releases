@@ -1,7 +1,36 @@
 {
   "tag": "v0.1.7",
   "name": "Artemis 0.1.7",
-  "phase": "prepare",
+  "phase": "publish",
   "notes": "Versão para os testes do grupo em Windows e macOS Apple Silicon.\n\n- Novo núcleo Artemis Audio Engine em Rust para envio e receção de voz.\n- Buffer de receção adaptativo para variações de rede.\n- Correção da escolha automática do microfone padrão do sistema.\n- Processamento de áudio separado da interface e buffers de envio reutilizados.\n- Diagnóstico de rede por participante.\n\nAtualização disponível nas definições para clientes ligados a este canal. No Windows, quem ainda usa uma versão anterior à 0.1.6 deve instalar o novo .exe manualmente uma vez. No Mac, versões antigas de desenvolvimento podem precisar da instalação manual desta versão para entrar no canal.\n\nWindows: Artemis_0.1.7_x64-setup.exe. Mac Apple Silicon: extrair Artemis_0.1.7_aarch64-macos.zip e colocar Artemis.app em Aplicações. O arquivo .app.tar.gz e as assinaturas são usados pelo atualizador. O pacote Mac não tem notarização Apple.\n\nO protocolo do servidor mantém-se compatível. Esta versão ainda não ativa adaptação automática do bitrate nem cifragem do áudio.\n",
-  "assets": []
+  "assets": [
+    {
+      "name": "Artemis_0.1.7_x64-setup.exe",
+      "sha256": "954316325254885d6ad66aabf8bbcce184e676fff06e81b7c8c5606fad6d3253"
+    },
+    {
+      "name": "Artemis_0.1.7_x64-setup.exe.sig",
+      "sha256": "22a6d7c810a17697602ec64c9581b9f87aa0df918f4a3e95db1ea79a96a7b517"
+    },
+    {
+      "name": "Artemis_0.1.7_aarch64.app.tar.gz",
+      "sha256": "f3c007432016bf57aca5273d312f888d58cb276ed098a340182867053d7cbf53"
+    },
+    {
+      "name": "Artemis_0.1.7_aarch64.app.tar.gz.sig",
+      "sha256": "064aafbd17cb647bba94abe432bcbdc9e1b66abef90397ecf633b8551d847328"
+    },
+    {
+      "name": "Artemis_0.1.7_aarch64-macos.zip",
+      "sha256": "f0e78f745ad4d5900bebe725344ce4c7f0ff2cd9b41c09237fe1f2d023b12ae2"
+    },
+    {
+      "name": "latest.json",
+      "sha256": "a8f436991ac7b8be586f7a88cf56aa543e2c6e0759fa8cf77f7f13cb4269d73d"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "793e835597b0fdb0b7c981deac3af3f766cd12f7d9dba9221577c7dd17f20758"
+    }
+  ]
 }
