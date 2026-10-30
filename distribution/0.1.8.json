@@ -1,6 +1,36 @@
 {
   "tag": "v0.1.8",
   "name": "Artemis 0.1.8",
-  "phase": "prepare",
-  "notes": "Versão de testes do grupo para Windows e macOS Apple Silicon.\n\n- Painel de soundboard nativo, importação de sons e volumes separados.\n- Partilha do áudio de uma aplicação selecionada.\n- Novo transporte AAE com TLS/QUIC, feedback de rede e adaptação do bitrate.\n\nA ligação atual ao servidor mantém-se por omissão. A partilha de áudio, o envio do soundboard e a adaptação de rede exigem o novo relay AAE e API HTTPS configurados no servidor; não ficam ativos apenas por instalar esta atualização. Música e efeitos usam áudio mono nesta fase. O mute do microfone mantém a receção de voz e é independente das fontes partilhadas.\n\nPartilha: macOS 13+ com autorização do sistema; Windows 11 ou build 20348+. Pacote Mac Apple Silicon com assinatura local, sem notarização Apple. Captação real e chamadas com o novo relay ainda precisam de testes do grupo."
+  "phase": "publish",
+  "notes": "Versão de testes para Windows e macOS Apple Silicon.\n\n- Soundboard nativo com importação de sons e volumes separados.\n- Partilha do áudio da aplicação escolhida, independente do mute do microfone.\n- Transporte AAE seguro TLS/QUIC, feedback de rede e adaptação do bitrate.\n\nConfiguração para o novo relay do Pi:\nAPI: https://lunixts.dynip.sapo.pt/artemis\nAtivar voz segura nas definições.\nNome no certificado: lunixts.dynip.sapo.pt\nPorta de voz segura: 8001\nDeixar o certificado adicional vazio: o servidor usa um certificado público válido.\nSerá necessário voltar a iniciar sessão após a renovação da autenticação do servidor. As contas mantêm-se. A ligação antiga permanece como opção na aplicação para outros servidores, mas o relay antigo deste Pi foi substituído.\n\nMúsica e efeitos são mono nesta fase. Partilha: macOS 13+ com autorização do sistema; Windows 11 ou build 20348+. Os atalhos do soundboard funcionam com a janela em foco. O pacote Mac usa assinatura local, sem notarização Apple.\n\nTestes de transporte e autenticação não substituem os testes reais de microfone, partilha de aplicações e chamadas do grupo.",
+  "assets": [
+    {
+      "name": "Artemis_0.1.8_x64-setup.exe",
+      "sha256": "ca14b80d87a3401b96702c45076be1b8cb5c8d274316dbc826e50b0d24fb84f8"
+    },
+    {
+      "name": "Artemis_0.1.8_x64-setup.exe.sig",
+      "sha256": "f703913f88f40069c49b6b7d1124d2cc131c8fa1ca2c95afb52de99aae7ad82e"
+    },
+    {
+      "name": "Artemis_0.1.8_aarch64.app.tar.gz",
+      "sha256": "b55653abc24e9fc08a34ccb0ceb036bd32ff6f97ef5213c1253ca7c3c7929af6"
+    },
+    {
+      "name": "Artemis_0.1.8_aarch64.app.tar.gz.sig",
+      "sha256": "662e81583871ba9e4ff96c99e389f5459a19745932a52ccad5ec5e60da1abb52"
+    },
+    {
+      "name": "Artemis_0.1.8_aarch64-macos.zip",
+      "sha256": "97b0a1b05141e0558f0022222190e772952956879c31dcab3f79bc0967685fac"
+    },
+    {
+      "name": "latest.json",
+      "sha256": "bf4155a6230ade35c7b57dbb801d4983820b46ee3bb1d62965064030aa69d85f"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "c4047ac672d667f8f8f015be14a56151f9bbd39a1ca82a5b4e9ecb44171f0f84"
+    }
+  ]
 }
