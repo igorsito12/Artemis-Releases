@@ -1,7 +1,7 @@
 {
   "tag": "v0.1.8",
   "name": "Artemis 0.1.8",
-  "phase": "publish",
+  "phase": "repair_prepare",
   "notes": "Versão de testes para Windows e macOS Apple Silicon.\n\n- Soundboard nativo com importação de sons e volumes separados.\n- Partilha do áudio da aplicação escolhida, independente do mute do microfone.\n- Transporte AAE seguro TLS/QUIC, feedback de rede e adaptação do bitrate.\n\nConfiguração para o novo relay do Pi:\nAPI: https://lunixts.dynip.sapo.pt/artemis\nAtivar voz segura nas definições.\nNome no certificado: lunixts.dynip.sapo.pt\nPorta de voz segura: 8001\nDeixar o certificado adicional vazio: o servidor usa um certificado público válido.\nSerá necessário voltar a iniciar sessão após a renovação da autenticação do servidor. As contas mantêm-se. A ligação antiga permanece como opção na aplicação para outros servidores, mas o relay antigo deste Pi foi substituído.\n\nMúsica e efeitos são mono nesta fase. Partilha: macOS 13+ com autorização do sistema; Windows 11 ou build 20348+. Os atalhos do soundboard funcionam com a janela em foco. O pacote Mac usa assinatura local, sem notarização Apple.\n\nTestes de transporte e autenticação não substituem os testes reais de microfone, partilha de aplicações e chamadas do grupo.",
   "assets": [
     {
@@ -32,5 +32,6 @@
       "name": "SHA256SUMS.txt",
       "sha256": "c4047ac672d667f8f8f015be14a56151f9bbd39a1ca82a5b4e9ecb44171f0f84"
     }
-  ]
+  ],
+  "original_mac_sha256": "b55653abc24e9fc08a34ccb0ceb036bd32ff6f97ef5213c1253ca7c3c7929af6"
 }

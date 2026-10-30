@@ -44,6 +44,42 @@ jobs:
               published = api('PATCH', root + '/' + str(release['id']), {'draft':False, 'prerelease':False, 'make_latest':'true', 'name':state['name'], 'body':state['notes']})
               assert not published['draft'] and not published['prerelease']
               print('Published:', published['html_url'])
+          elif state['phase'] == 'repair_prepare':
+              import tarfile, tempfile, copy, hashlib
+              assert release is not None and not release['draft']
+              assert state['tag'] == 'v0.1.8'
+              original_name = 'Artemis_0.1.8_aarch64.app.tar.gz'
+              repaired_name = 'Artemis_0.1.8_aarch64-updater.app.tar.gz'
+              assets = {a['name']: a for a in api('GET', root + '/' + str(release['id']) + '/assets?per_page=100')}
+              assert assets[original_name]['digest'] == 'sha256:' + state['original_mac_sha256']
+              if repaired_name not in assets:
+                  with tempfile.TemporaryDirectory() as directory:
+                      folder = Path(directory)
+                      subprocess.run(['gh', 'release', 'download', state['tag'], '--pattern', original_name, '--dir', directory], check=True)
+                      repaired = folder / repaired_name
+                      with tarfile.open(folder / original_name, 'r:gz') as source, tarfile.open(repaired, 'w:gz', format=tarfile.PAX_FORMAT) as target:
+                          for entry in source:
+                              parts = Path(entry.name).parts
+                              assert parts and parts[0] == 'Artemis.app' and '..' not in parts
+                              if any(part.startswith('._') or part == '__MACOSX' for part in parts):
+                                  continue
+                              item = copy.copy(entry)
+                              item.uid = item.gid = 0
+                              item.uname = item.gname = ''
+                              item.pax_headers = {}
+                              item.mtime = int(item.mtime)
+                              target.addfile(item, source.extractfile(entry) if entry.isfile() else None)
+                      with tarfile.open(repaired, 'r:gz') as verify:
+                          members = verify.getmembers()
+                          assert not any(any(p.startswith('._') for p in Path(m.name).parts) for m in members)
+                          assert any(m.name == 'Artemis.app/Contents/MacOS/artemis' for m in members)
+                      digest = hashlib.sha256(repaired.read_bytes()).hexdigest()
+                      subprocess.run(['gh', 'release', 'upload', state['tag'], str(repaired)], check=True)
+                      updated = {a['name']: a for a in api('GET', root + '/' + str(release['id']) + '/assets?per_page=100')}
+                      assert updated[repaired_name]['digest'] == 'sha256:' + digest
+                      print('Prepared corrected Mac archive:', repaired_name, digest)
+              else:
+                  print('Corrected Mac archive already exists:', assets[repaired_name]['digest'])
           else:
               raise ValueError('Unknown phase')
           PY
