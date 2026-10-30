@@ -2,7 +2,7 @@ name: Publish Artemis distribution
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/publish-distribution.yml', 'distribution/0.1.7.json']
+    paths: ['.github/workflows/publish-distribution.yml', 'distribution/0.1.8.json']
 permissions:
   contents: write
 jobs:
@@ -19,7 +19,7 @@ jobs:
           python3 - <<'PY'
           import json, subprocess
           from pathlib import Path
-          state = json.loads(Path('distribution/0.1.7.json').read_text())
+          state = json.loads(Path('distribution/0.1.8.json').read_text())
           def api(method, endpoint, body=None):
               args = ['gh', 'api', '--method', method, endpoint]
               if body is not None:

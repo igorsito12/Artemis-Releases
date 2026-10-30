@@ -1,0 +1,6 @@
+{
+  "tag": "v0.1.8",
+  "name": "Artemis 0.1.8",
+  "phase": "prepare",
+  "notes": "Versão de testes do grupo para Windows e macOS Apple Silicon.\n\n- Painel de soundboard nativo, importação de sons e volumes separados.\n- Partilha do áudio de uma aplicação selecionada.\n- Novo transporte AAE com TLS/QUIC, feedback de rede e adaptação do bitrate.\n\nA ligação atual ao servidor mantém-se por omissão. A partilha de áudio, o envio do soundboard e a adaptação de rede exigem o novo relay AAE e API HTTPS configurados no servidor; não ficam ativos apenas por instalar esta atualização. Música e efeitos usam áudio mono nesta fase. O mute do microfone mantém a receção de voz e é independente das fontes partilhadas.\n\nPartilha: macOS 13+ com autorização do sistema; Windows 11 ou build 20348+. Pacote Mac Apple Silicon com assinatura local, sem notarização Apple. Captação real e chamadas com o novo relay ainda precisam de testes do grupo."
+}
