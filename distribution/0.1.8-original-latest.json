@@ -1,0 +1,15 @@
+{
+  "version": "0.1.8",
+  "notes": "Soundboard nativo, partilha do áudio de aplicações e novo transporte AAE seguro com adaptação de rede. Para usar o novo relay: API https://lunixts.dynip.sapo.pt/artemis; ativar voz segura; nome no certificado lunixts.dynip.sapo.pt; porta de voz segura 8001. Será necessário voltar a iniciar sessão após a atualização do servidor. Música e efeitos mono nesta fase.",
+  "pub_date": "2026-10-30T18:51:31Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTRDMzSlpRM0xGWkhoK2pNZWJyNXdJSGcyZi9zVjZHaGxIclRkK0hyMXVyQnA5ZUl2NFFzVmt1RDZXNk1BWXQxYkJXR3hnbS9HRjdGVFlVaGF0S2hLZ0Z3ekQzdmJVVFFFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMzg2MTIwCWZpbGU6QXJ0ZW1pc18wLjEuOF94NjQtc2V0dXAuZXhlCkcraTFHYzBXNTZMR2J6NnQ4TmdIckZUNi94bFdvcFpyYVJuVm81NlZuZ241SFZrQ3VGQmFVN1VOTWlsSGhsNkVCV0NVRHhhOWpBanNZdk4zN0tqK0JRPT0K",
+      "url": "https://github.com/igorsito12/Artemis-Releases/releases/download/v0.1.8/Artemis_0.1.8_x64-setup.exe"
+    },
+    "darwin-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTRDMzSlpRM0xGWkVkNnpBRWRXdFJlay9Vc1MwQU9wcEplazhYL1A5YTNoaEVmeXJubWNlbS9MZ3FvRUkxRldUeWx1Q2FubXlKbi9OcHdlVGJmYkFQcGdEbWNsNURvL2dJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMzg0Njk4CWZpbGU6QXJ0ZW1pc18wLjEuOF9hYXJjaDY0LmFwcC50YXIuZ3oKVGFLQ25qT01WR3FrOElkaVZqNmlWdk5laWFwYTlBa1g0bEFkU3lsTDk0dFBLalcrVnNqaFQ0bTJrUVAwOTVQcitlUU1QSkliNkF3ejFhYWR2V2UrQmc9PQo=",
+      "url": "https://github.com/igorsito12/Artemis-Releases/releases/download/v0.1.8/Artemis_0.1.8_aarch64.app.tar.gz"
+    }
+  }
+}
