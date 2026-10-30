@@ -1,0 +1,7 @@
+{
+  "tag": "v0.1.7",
+  "name": "Artemis 0.1.7",
+  "phase": "prepare",
+  "notes": "Versão para os testes do grupo em Windows e macOS Apple Silicon.\n\n- Novo núcleo Artemis Audio Engine em Rust para envio e receção de voz.\n- Buffer de receção adaptativo para variações de rede.\n- Correção da escolha automática do microfone padrão do sistema.\n- Processamento de áudio separado da interface e buffers de envio reutilizados.\n- Diagnóstico de rede por participante.\n\nAtualização disponível nas definições para clientes ligados a este canal. No Windows, quem ainda usa uma versão anterior à 0.1.6 deve instalar o novo .exe manualmente uma vez. No Mac, versões antigas de desenvolvimento podem precisar da instalação manual desta versão para entrar no canal.\n\nWindows: Artemis_0.1.7_x64-setup.exe. Mac Apple Silicon: extrair Artemis_0.1.7_aarch64-macos.zip e colocar Artemis.app em Aplicações. O arquivo .app.tar.gz e as assinaturas são usados pelo atualizador. O pacote Mac não tem notarização Apple.\n\nO protocolo do servidor mantém-se compatível. Esta versão ainda não ativa adaptação automática do bitrate nem cifragem do áudio.\n",
+  "assets": []
+}

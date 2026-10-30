@@ -1,0 +1,49 @@
+name: Publish Artemis distribution
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-distribution.yml', 'distribution/0.1.7.json']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare or publish the signed distribution
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: igorsito12/Artemis-Releases
+        run: |
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          state = json.loads(Path('distribution/0.1.7.json').read_text())
+          def api(method, endpoint, body=None):
+              args = ['gh', 'api', '--method', method, endpoint]
+              if body is not None:
+                  args += ['--input', '-']
+              result = subprocess.run(args, input=json.dumps(body) if body is not None else None, text=True, capture_output=True, check=True)
+              return json.loads(result.stdout)
+          root = 'repos/igorsito12/Artemis-Releases/releases'
+          releases = api('GET', root + '?per_page=100')
+          release = next((r for r in releases if r['tag_name'] == state['tag']), None)
+          if state['phase'] == 'prepare':
+              if release is None:
+                  release = api('POST', root, {'tag_name': state['tag'], 'target_commitish':'main', 'name':state['name'], 'body':state['notes'], 'draft':True, 'prerelease':False})
+              print('Prepared release:', release['id'], release['html_url'])
+          elif state['phase'] == 'publish':
+              assert release is not None, 'Prepare the draft first'
+              assets = {a['name']:a for a in api('GET', root + '/' + str(release['id']) + '/assets?per_page=100')}
+              assert len(state['assets']) >= 6, 'Signed artifacts and manifest are required'
+              for expected in state['assets']:
+                  asset = assets.get(expected['name'])
+                  assert asset is not None, 'Missing asset: ' + expected['name']
+                  assert asset['digest'] == 'sha256:' + expected['sha256'], 'Asset hash mismatch: ' + expected['name']
+              published = api('PATCH', root + '/' + str(release['id']), {'draft':False, 'prerelease':False, 'make_latest':'true', 'name':state['name'], 'body':state['notes']})
+              assert not published['draft'] and not published['prerelease']
+              print('Published:', published['html_url'])
+          else:
+              raise ValueError('Unknown phase')
+          PY
