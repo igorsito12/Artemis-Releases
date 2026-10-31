@@ -1,0 +1,7 @@
+{
+  "tag": "v0.1.10",
+  "name": "Artemis 0.1.10",
+  "phase": "prepare",
+  "notes": "Versão de testes para Windows e macOS Apple Silicon.\n\n- Volume por participante ligado ao motor nativo: zero silencia voz, música e efeitos recebidos desse participante.\n- Correção de descartes de amostras do microfone que podiam contribuir para voz robótica e cortes.\n- A partilha de áudio termina quando a aplicação escolhida é fechada; silêncio ou música baixa não terminam a partilha.\n- Convites transportam a configuração do servidor, com confirmação do destino e perfis de servidores guardados.\n- Melhorias de entrada/troca de salas, indicação de envio no chat e apresentação da latência.\n- Captura apenas de áudio em macOS 14.2+; sistemas anteriores mantêm o método compatível.\n\nAvatares até 10 MiB/GIF estão preparados no cliente, mas dependem da atualização da API do servidor. Login automático, câmara e partilha de ecrã continuam para fases seguintes.\n\nAs correções passaram nos testes automáticos. A melhoria acústica e a captura real ainda devem ser confirmadas pelo grupo. Música e efeitos mantêm-se mono. Pacote Mac Apple Silicon com assinatura local, sem notarização Apple. Windows com assinatura do atualizador, sem Authenticode.\n",
+  "assets": []
+}
