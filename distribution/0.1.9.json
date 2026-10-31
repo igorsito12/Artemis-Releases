@@ -1,7 +1,36 @@
 {
   "tag": "v0.1.9",
   "name": "Artemis 0.1.9",
-  "phase": "prepare",
+  "phase": "publish",
   "notes": "Versão de testes para Windows e macOS Apple Silicon.\n\n- Recuperação automática de interrupções de voz e melhorias na troca de salas.\n- Correção do arranque da partilha de áudio no Mac quando já está a tocar música.\n- Soundboard com pré-escuta local, botões de reprodução e sons até dois minutos.\n- Indicador de música por participante e ícones de mute sem repetição.\n- Correções de mensagens não lidas, sons de entrada/saída e interface de desktop.\n- Ícone Windows com resoluções para ecrãs de alta densidade e diagnóstico local de falhas.\n\nMantém a configuração do servidor e as contas existentes. A lista global de membros por sala ainda depende de integração no servidor.\n\nMúsica e efeitos são mono nesta fase. Partilha de aplicações: macOS 13+ ou Windows 11/build 20348+. Pacote Mac Apple Silicon com assinatura local, sem notarização Apple. Não inclui versão Mac Intel.\n\nA recuperação não garante continuidade durante todas as falhas de rede. A captura real e qualidade da chamada continuam em teste com o grupo.",
-  "assets": []
+  "assets": [
+    {
+      "name": "Artemis_0.1.9_aarch64-macos.zip",
+      "sha256": "fc50edab877c8035724d5ad3d615c8848579bcc78bae869bac5d87160472b9e5"
+    },
+    {
+      "name": "Artemis_0.1.9_aarch64.app.tar.gz",
+      "sha256": "16e70516518ddf2d47106ab0546b85f437a0a7a6eb80bf3b465b2e826d9d6f29"
+    },
+    {
+      "name": "Artemis_0.1.9_aarch64.app.tar.gz.sig",
+      "sha256": "359a73f209a4400242c2ab5c0bfcfe8ab38ae6c1bac9f02d2af8674f8d5ea0ba"
+    },
+    {
+      "name": "Artemis_0.1.9_x64-setup.exe",
+      "sha256": "479fe2e33412c60d9560dd64159d270f5346fda6e5182b8802d578c0d80ce09a"
+    },
+    {
+      "name": "Artemis_0.1.9_x64-setup.exe.sig",
+      "sha256": "9dacba0ed07de86abd7d46cf4be3494fa09e1ccb58a152a337b37b6ea458148c"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "c8a3f8d1f535c5e153856265f99980d5d31409348e78220105f41ab47e3accaf"
+    },
+    {
+      "name": "latest.json",
+      "sha256": "8ab1a96624112cb0398b62ac9cb4b85ac55cb92dbbc7e84ba74bca30ea17cd2b"
+    }
+  ]
 }
