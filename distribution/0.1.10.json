@@ -1,7 +1,36 @@
 {
   "tag": "v0.1.10",
   "name": "Artemis 0.1.10",
-  "phase": "prepare",
+  "phase": "publish",
   "notes": "Versão de testes para Windows e macOS Apple Silicon.\n\n- Volume por participante ligado ao motor nativo: zero silencia voz, música e efeitos recebidos desse participante.\n- Correção de descartes de amostras do microfone que podiam contribuir para voz robótica e cortes.\n- A partilha de áudio termina quando a aplicação escolhida é fechada; silêncio ou música baixa não terminam a partilha.\n- Convites transportam a configuração do servidor, com confirmação do destino e perfis de servidores guardados.\n- Melhorias de entrada/troca de salas, indicação de envio no chat e apresentação da latência.\n- Captura apenas de áudio em macOS 14.2+; sistemas anteriores mantêm o método compatível.\n\nAvatares até 10 MiB/GIF estão preparados no cliente, mas dependem da atualização da API do servidor. Login automático, câmara e partilha de ecrã continuam para fases seguintes.\n\nAs correções passaram nos testes automáticos. A melhoria acústica e a captura real ainda devem ser confirmadas pelo grupo. Música e efeitos mantêm-se mono. Pacote Mac Apple Silicon com assinatura local, sem notarização Apple. Windows com assinatura do atualizador, sem Authenticode.\n",
-  "assets": []
+  "assets": [
+    {
+      "name": "Artemis_0.1.10_aarch64-macos.zip",
+      "sha256": "c7e9a99d00b4aaa01fbabb5f9b919167f7ebefe21d54e3cdb9fec7f027205f58"
+    },
+    {
+      "name": "Artemis_0.1.10_aarch64.app.tar.gz",
+      "sha256": "779d771469b1383dbba7bc5793975a4664877c423769f6dd90e5fd3b01b93f77"
+    },
+    {
+      "name": "Artemis_0.1.10_aarch64.app.tar.gz.sig",
+      "sha256": "5ab3a3fac0c717f48dd0be8e22a054c3c07e3155ae6a1bf0ae524696a8adc1a6"
+    },
+    {
+      "name": "Artemis_0.1.10_x64-setup.exe",
+      "sha256": "da2f4cd1807efaa1382aa134490305206186c067bc3f6c12d73db770ef372b3a"
+    },
+    {
+      "name": "Artemis_0.1.10_x64-setup.exe.sig",
+      "sha256": "59b8a1eda36a764b62c7f41e654d9a3749f4662c3a81fb915fc41f18ec0bf3b7"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "sha256": "af4cb6f6747452e1c0ac6513f9e8e0c6d95238bf93a74c9587ac5ff19c5f67a5"
+    },
+    {
+      "name": "latest.json",
+      "sha256": "459e22dfae3829d8ef705d572e787de2560ef6779cf7f36334bfcd150dc2460c"
+    }
+  ]
 }
