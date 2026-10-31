@@ -1,0 +1,7 @@
+{
+  "tag": "v0.1.9",
+  "name": "Artemis 0.1.9",
+  "phase": "prepare",
+  "notes": "Versão de testes para Windows e macOS Apple Silicon.\n\n- Recuperação automática de interrupções de voz e melhorias na troca de salas.\n- Correção do arranque da partilha de áudio no Mac quando já está a tocar música.\n- Soundboard com pré-escuta local, botões de reprodução e sons até dois minutos.\n- Indicador de música por participante e ícones de mute sem repetição.\n- Correções de mensagens não lidas, sons de entrada/saída e interface de desktop.\n- Ícone Windows com resoluções para ecrãs de alta densidade e diagnóstico local de falhas.\n\nMantém a configuração do servidor e as contas existentes. A lista global de membros por sala ainda depende de integração no servidor.\n\nMúsica e efeitos são mono nesta fase. Partilha de aplicações: macOS 13+ ou Windows 11/build 20348+. Pacote Mac Apple Silicon com assinatura local, sem notarização Apple. Não inclui versão Mac Intel.\n\nA recuperação não garante continuidade durante todas as falhas de rede. A captura real e qualidade da chamada continuam em teste com o grupo.",
+  "assets": []
+}

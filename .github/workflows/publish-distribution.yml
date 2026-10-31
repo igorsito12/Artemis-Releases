@@ -2,7 +2,7 @@ name: Publish Artemis distribution
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/publish-distribution.yml', 'distribution/0.1.8.json']
+    paths: ['.github/workflows/publish-distribution.yml', 'distribution/0.1.9.json']
 permissions:
   contents: write
 jobs:
@@ -19,7 +19,7 @@ jobs:
           python3 - <<'PY'
           import json, subprocess
           from pathlib import Path
-          state = json.loads(Path('distribution/0.1.8.json').read_text())
+          state = json.loads(Path('distribution/0.1.9.json').read_text())
           def api(method, endpoint, body=None):
               args = ['gh', 'api', '--method', method, endpoint]
               if body is not None:
@@ -44,93 +44,6 @@ jobs:
               published = api('PATCH', root + '/' + str(release['id']), {'draft':False, 'prerelease':False, 'make_latest':'true', 'name':state['name'], 'body':state['notes']})
               assert not published['draft'] and not published['prerelease']
               print('Published:', published['html_url'])
-          elif state['phase'] == 'repair_prepare':
-              import tarfile, tempfile, copy, hashlib
-              assert release is not None and not release['draft']
-              assert state['tag'] == 'v0.1.8'
-              original_name = 'Artemis_0.1.8_aarch64.app.tar.gz'
-              repaired_name = 'Artemis_0.1.8_aarch64-updater.app.tar.gz'
-              assets = {a['name']: a for a in api('GET', root + '/' + str(release['id']) + '/assets?per_page=100')}
-              assert assets[original_name]['digest'] == 'sha256:' + state['original_mac_sha256']
-              if repaired_name not in assets:
-                  with tempfile.TemporaryDirectory() as directory:
-                      folder = Path(directory)
-                      subprocess.run(['gh', 'release', 'download', state['tag'], '--pattern', original_name, '--dir', directory], check=True)
-                      repaired = folder / repaired_name
-                      with tarfile.open(folder / original_name, 'r:gz') as source, tarfile.open(repaired, 'w:gz', format=tarfile.PAX_FORMAT) as target:
-                          for entry in source:
-                              parts = Path(entry.name).parts
-                              if any(part.startswith('._') or part == '__MACOSX' for part in parts):
-                                  continue
-                              assert parts and parts[0] == 'Artemis.app' and '..' not in parts
-                              item = copy.copy(entry)
-                              item.uid = item.gid = 0
-                              item.uname = item.gname = ''
-                              item.pax_headers = {}
-                              item.mtime = int(item.mtime)
-                              target.addfile(item, source.extractfile(entry) if entry.isfile() else None)
-                      with tarfile.open(repaired, 'r:gz') as verify:
-                          members = verify.getmembers()
-                          assert not any(any(p.startswith('._') for p in Path(m.name).parts) for m in members)
-                          assert any(m.name == 'Artemis.app/Contents/MacOS/artemis' for m in members)
-                      digest = hashlib.sha256(repaired.read_bytes()).hexdigest()
-                      subprocess.run(['gh', 'release', 'upload', state['tag'], str(repaired)], check=True)
-                      updated = {a['name']: a for a in api('GET', root + '/' + str(release['id']) + '/assets?per_page=100')}
-                      assert updated[repaired_name]['digest'] == 'sha256:' + digest
-                      print('Prepared corrected Mac archive:', repaired_name, digest)
-              else:
-                  print('Corrected Mac archive already exists:', assets[repaired_name]['digest'])
-          elif state['phase'] == 'repair_publish':
-              import tempfile, hashlib, shutil
-              assert release is not None and not release['draft'] and release['id'] == 429356379
-              assert state['tag'] == 'v0.1.8'
-              repaired_name = 'Artemis_0.1.8_aarch64-updater.app.tar.gz'
-              signature_name = repaired_name + '.sig'
-              files = {
-                  signature_name: Path('distribution/0.1.8-macos-fixed-signature.txt'),
-                  'SHA256SUMS.txt': Path('distribution/0.1.8-macos-fixed-SHA256SUMS.txt'),
-                  'latest.json': Path('distribution/0.1.8-macos-fixed-latest.json'),
-              }
-              manifest = json.loads(files['latest.json'].read_text())
-              original = json.loads(Path('distribution/0.1.8-original-latest.json').read_text())
-              assert manifest['version'] == original['version'] == '0.1.8'
-              assert manifest['platforms']['windows-x86_64'] == original['platforms']['windows-x86_64']
-              assert manifest['platforms']['darwin-aarch64']['url'] == 'https://github.com/igorsito12/Artemis-Releases/releases/download/v0.1.8/' + repaired_name
-              assert manifest['platforms']['darwin-aarch64']['signature'] == files[signature_name].read_text().strip()
-              expected = {item['name']: item['sha256'] for item in state['assets']}
-              assert len(expected) >= 7
-              assets = {a['name']: a for a in api('GET', root + '/' + str(release['id']) + '/assets?per_page=100')}
-              for name, digest in expected.items():
-                  if name in files:
-                      assert hashlib.sha256(files[name].read_bytes()).hexdigest() == digest, 'Metadata hash mismatch: ' + name
-                  else:
-                      assert assets[name]['digest'] == 'sha256:' + digest, 'Payload hash mismatch: ' + name
-              with tempfile.TemporaryDirectory() as directory:
-                  folder = Path(directory)
-                  staged = folder / 'staged'; staged.mkdir()
-                  backup = folder / 'backup'; backup.mkdir()
-                  for name, path in files.items():
-                      shutil.copyfile(path, staged / name)
-                  if signature_name not in assets:
-                      subprocess.run(['gh', 'release', 'upload', state['tag'], str(staged / signature_name)], check=True)
-                  else:
-                      assert assets[signature_name]['digest'] == 'sha256:' + expected[signature_name]
-                  # Retain the exact previous metadata for recovery; publish the manifest last.
-                  for name in ['SHA256SUMS.txt', 'latest.json']:
-                      subprocess.run(['gh', 'release', 'download', state['tag'], '--pattern', name, '--dir', str(backup)], check=True)
-                  try:
-                      for name in ['SHA256SUMS.txt', 'latest.json']:
-                          if assets[name]['digest'] != 'sha256:' + expected[name]:
-                              subprocess.run(['gh', 'release', 'upload', state['tag'], str(staged / name), '--clobber'], check=True)
-                      verified = {a['name']: a for a in api('GET', root + '/' + str(release['id']) + '/assets?per_page=100')}
-                      for name, digest in expected.items():
-                          assert verified[name]['digest'] == 'sha256:' + digest, 'Published hash mismatch: ' + name
-                  except Exception:
-                      for name in ['SHA256SUMS.txt', 'latest.json']:
-                          subprocess.run(['gh', 'release', 'upload', state['tag'], str(backup / name), '--clobber'], check=True)
-                      raise
-              api('PATCH', root + '/' + str(release['id']), {'body':state['notes'] + '\n\nCorreção de distribuição Mac: pacote do atualizador reempacotado e testado com o instalador Tauri. A versão da aplicação mantém-se 0.1.8.'})
-              print('Corrected Mac updater metadata published; Windows metadata unchanged.')
           else:
               raise ValueError('Unknown phase')
           PY
